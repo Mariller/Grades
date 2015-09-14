@@ -18,11 +18,11 @@ namespace Grades
             }
         }
 
-        public GradeStatistics ComputeStatistics()
+        public GradeStatistics ComputeStatistics() 
         {
             GradeStatistics stats = new GradeStatistics();
 
-            float sum = 0f;
+            float sum = 0f; 
 
             foreach( float grade in grades)
             {
@@ -32,7 +32,7 @@ namespace Grades
             }
 
             stats.AverageGrade = sum / grades.Count;
-            
+
             return stats;
         }
 
