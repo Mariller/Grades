@@ -5,8 +5,9 @@ namespace Grades
 {
     public class GradeBook
     {
-        public GradeBook()
+        public GradeBook(string name = "There is no name")
         {
+            Name = name;
             grades = new List<float>();
         }
 
@@ -17,6 +18,7 @@ namespace Grades
                 grades.Add(grade);
             }
         }
+
 
         public GradeStatistics ComputeStatistics() 
         {
@@ -36,7 +38,22 @@ namespace Grades
             return stats;
         }
 
-        public string Name;
+        private string _name;
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if(!String.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+            }
+        }
 
         private List<float> grades;
 
