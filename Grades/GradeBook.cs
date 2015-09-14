@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Grades
 {
-    class GradeBook
+    public class GradeBook
     {
         public GradeBook()
         {
@@ -35,6 +35,8 @@ namespace Grades
 
             return stats;
         }
+
+        public string Name;
 
         private List<float> grades;
 
