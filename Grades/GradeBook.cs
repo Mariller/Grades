@@ -48,12 +48,19 @@ namespace Grades
             }
             set
             {
-                if(!String.IsNullOrEmpty(value))
+                if (_name != value)
                 {
+                    var oldValue = _name;
                     _name = value;
+                    if (NameChanged != null)
+                    {
+                        NameChanged(oldValue, value);
+                    }
                 }
             }
         }
+
+        public event NameChangedDelegate NameChanged;
 
         private List<float> grades;
 

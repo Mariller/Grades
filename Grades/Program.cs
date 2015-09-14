@@ -16,13 +16,26 @@ namespace Grades
 
             GradeStatistics stats = book.ComputeStatistics();
 
-            book.Name = "";
+            book.NameChanged += (OnNameChanged);
+            book.NameChanged += (OnNameChanged);
+            book.NameChanged += (OnNameChanged2);
+            book.Name = "allen's book";
             WriteNames(book.Name);
                         
             Console.WriteLine("Average: " + stats.AverageGrade);
             Console.WriteLine("Highest: " + stats.HighestGrade);
             Console.WriteLine("Lowest: " + stats.LowestGrade);
 
+        }
+
+        private static void OnNameChanged2(string oldValue, string newValue)
+        {
+            Console.WriteLine("*****");
+        }
+
+        private static void OnNameChanged(string oldValue, string newValue)
+        {
+            Console.WriteLine("Name changed from {0} to {1}", oldValue, newValue);
         }
 
         private static void WriteBytes(int value)
