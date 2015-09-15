@@ -15,6 +15,17 @@ namespace Grades
             book.AddGrade(75f);
             book.WriteGrades(Console.Out);
 
+            try
+            {
+
+                Console.WriteLine("Pleae enter a name for the book!");
+                book.Name = Console.ReadLine();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("Invalid name!");
+            }
+
             GradeStatistics stats = book.ComputeStatistics();
 
             Console.WriteLine("Average: " + stats.AverageGrade);
