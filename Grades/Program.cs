@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Speech.Synthesis;
 
 
@@ -10,9 +11,37 @@ namespace Grades
         static void Main(string[] args)
         {
             GradeBook book = new GradeBook("Delan's Book");
-            book.AddGrade(91);
-            book.AddGrade(89.1f);
-            book.AddGrade(75f);
+
+                        
+
+
+            try
+            {
+                using (FileStream stream = File.Open("grades.txt", FileMode.Open))
+                using (StreamReader reader = new StreamReader(stream))
+                {            
+                    string line = reader.ReadLine();
+                    
+                    while (line != null)
+                    {
+                        float grade = float.Parse(line);
+                        book.AddGrade(grade);
+                        line = reader.ReadLine();
+                    }
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine("Could not locate the file grades.txt");
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine("No access");
+                return;
+            }
+            
+
             book.WriteGrades(Console.Out);
 
             try
