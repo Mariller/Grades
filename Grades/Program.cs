@@ -12,7 +12,8 @@ namespace Grades
             GradeBook book = new GradeBook("Delan's Book");
             book.AddGrade(91);
             book.AddGrade(89.1f);
-            book.AddGrade(90f);
+            book.AddGrade(75f);
+            book.WriteGrades(Console.Out);
 
             GradeStatistics stats = book.ComputeStatistics();
 
