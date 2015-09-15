@@ -20,7 +20,7 @@ namespace Grades
             }
         }        
 
-        public GradeStatistics ComputeStatistics() 
+        public virtual GradeStatistics ComputeStatistics() 
         {
             GradeStatistics stats = new GradeStatistics();
 
@@ -79,6 +79,6 @@ namespace Grades
 
         public event NameChangedDelegate NameChanged;
 
-        private List<float> _grades;       
+        protected List<float> _grades;       
     }
 }

@@ -10,18 +10,15 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            GradeBook book = new GradeBook("Delan's Book");
-
-                        
-
+            GradeBook book = CreateGradeBook();
 
             try
             {
                 using (FileStream stream = File.Open("grades.txt", FileMode.Open))
                 using (StreamReader reader = new StreamReader(stream))
-                {            
+                {
                     string line = reader.ReadLine();
-                    
+
                     while (line != null)
                     {
                         float grade = float.Parse(line);
@@ -40,7 +37,7 @@ namespace Grades
                 Console.WriteLine("No access");
                 return;
             }
-            
+
 
             book.WriteGrades(Console.Out);
 
@@ -62,6 +59,11 @@ namespace Grades
             Console.WriteLine("Lowest: " + stats.LowestGrade);
             Console.WriteLine("{0}, {1}", stats.LetterGrade, stats.Description);
 
+        }
+
+        private static GradeBook CreateGradeBook()
+        {
+            return new ThrowAwayGradeBook("Delan's Book");
         }
     }
 }
