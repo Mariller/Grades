@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Grades
 {
-    public class GradeBook
+    public class GradeBook : GradeTracker
     {
         public GradeBook(string name = "There is no name")
         {
@@ -12,7 +13,13 @@ namespace Grades
             _grades = new List<float>();
         }
 
-        public void AddGrade(float grade)
+        public override IEnumerator GetEnumerator()
+        {
+            return _grades.GetEnumerator();
+        }
+
+
+        public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
@@ -20,7 +27,7 @@ namespace Grades
             }
         }        
 
-        public virtual GradeStatistics ComputeStatistics() 
+        public override GradeStatistics ComputeStatistics() 
         {
             GradeStatistics stats = new GradeStatistics();
 
@@ -38,46 +45,17 @@ namespace Grades
             return stats;
         }
 
-        public void WriteGrades(TextWriter textWriter)
+        public override void WriteGrades(TextWriter textWriter)
         {
             textWriter.WriteLine("Grades:");
             for (int i = _grades.Count - 1; i >= 0; --i)
             {
                 textWriter.WriteLine(_grades[i]);
             }
-            textWriter.WriteLine("********  ");
+            textWriter.WriteLine("********");
         }
 
-        private string _name;
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Name cannot be null or empty");
-                }
-                if (_name != value)
-                {
-                    var oldValue = _name;
-                    _name = value;
-                    if (NameChanged != null)                    
-                    {
-                        NameChangedEventArgs args = new NameChangedEventArgs();
-                        args.OldValue = oldValue;
-                        args.NewValue = value;
-                        NameChanged(this, args);
-                    }
-                }
-            }
-        }
-
-        public event NameChangedDelegate NameChanged;
 
         protected List<float> _grades;       
     }

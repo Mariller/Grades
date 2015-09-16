@@ -10,7 +10,7 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            GradeBook book = CreateGradeBook();
+            IGradeTracker book = CreateGradeBook();
 
             try
             {
@@ -27,19 +27,22 @@ namespace Grades
                     }
                 }
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("Could not locate the file grades.txt");
                 return;
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 Console.WriteLine("No access");
                 return;
             }
 
 
-            book.WriteGrades(Console.Out);
+            foreach (float grade in book)
+            {
+                Console.WriteLine(grade);
+            }
 
             try
             {
@@ -47,7 +50,7 @@ namespace Grades
                 Console.WriteLine("Pleae enter a name for the book!");
                 book.Name = Console.ReadLine();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 Console.WriteLine("Invalid name!");
             }
@@ -61,8 +64,9 @@ namespace Grades
 
         }
 
-        private static GradeBook CreateGradeBook()
+        private static IGradeTracker CreateGradeBook()
         {
+            IGradeTracker book = new ThrowAwayGradeBook("Delan's Book");
             return new ThrowAwayGradeBook("Delan's Book");
         }
     }
